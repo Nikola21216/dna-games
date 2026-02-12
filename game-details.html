@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Game Details - DNA Games</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                    <div class="logo-icon">
+                        <img src="images/dna-logo.png" alt="DNA Games Logo" class="dna-logo-img">
+                    </div>
+                    <span class="logo-text">DNA Games</span>
+                </a>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Search for games, software, or bundles..." id="searchInput">
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="header-actions">
+                    <div class="cart-icon" onclick="openCart()">
+                        <span class="cart-symbol">🛒</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+
+                    <div class="user-icon" onclick="openUserMenu()">
+                        <span class="user-symbol">👤</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 0;">
+                <!-- Breadcrumb -->
+                <nav style="margin-bottom: 2rem;">
+                    <a href="index.html" style="color: #9ca3af; text-decoration: none;">Home</a>
+                    <span style="color: #9ca3af; margin: 0 0.5rem;">></span>
+                    <span style="color: #1e3c72;">Game Details</span>
+                </nav>
+
+                <div id="gameDetails">
+                    <!-- Game details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 DNA Games. All rights reserved. | Trusted digital marketplace since 2020</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+        let currentGame = null;
+        let currentMediaIndex = 0;
+
+        // Sample products data with enhanced details
+        const products = [
+            {
+                id: 1,
+                title: "EA FC 25",
+                platform: "xbox",
+                region: "Global",
+                original_price: 69.99,
+                price: 34.99,
+                discount: 50,
+                rating: 4.1,
+                seller_name: "Sports Central",
+                seller_verified: false,
+                image: "images/EA FC 25.png",
+                images: ["images/fc1.jpg", "images/fc2.jpg", "images/fc3.jpg"],
+                videos: ["videos/fc.mp4"],
+                description: "The World's Game - EA FC 25 Ultimate Edition",
+                detailed_description: "EA SPORTS FC 25 welcomes you to The World's Game: the most true-to-football experience ever with HyperMotionV, PlayStyles optimised by Opta, and an enhanced Frostbite Engine.",
+                release_date: "September 27, 2024",
+                developer: "EA Sports",
+                publisher: "Electronic Arts",
+                age_rating: "E - Everyone",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese"],
+                features: ["Single-player", "Online multiplayer", "Cross-platform play", "EA Play", "Steam Achievements"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5-6600K / AMD Ryzen 5 1600",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 1050 Ti / AMD RX 570",
+                        directx: "Version 12",
+                        storage: "100 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 11 64-bit",
+                        processor: "Intel Core i7-9700K / AMD Ryzen 7 2700X",
+                        memory: "16 GB RAM",
+                        graphics: "NVIDIA GTX 1660 / AMD RX 5600 XT",
+                        directx: "Version 12",
+                        storage: "100 GB available space"
+                    }
+                }
+            },
+            {
+                id: 2,
+                title: "God of War",
+                platform: "playstation",
+                region: "Global",
+                original_price: 49.99,
+                price: 19.99,
+                discount: 60,
+                rating: 4.8,
+                seller_name: "Epic Games Store",
+                seller_verified: true,
+                image: "images/god of war.jpg",
+                images: ["images/god1.jpg", "images/god2.jpg", "images/god3.jpg"],
+                videos: ["videos/god.mp4"],
+                description: "His vengeance against the Gods of Olympus years behind him, Kratos now lives as a man in the realm of Norse mythology.",
+                detailed_description: "God of War is an action-adventure game developed by Santa Monica Studio and published by Sony Interactive Entertainment. With an over the shoulder free camera that brings the player closer to the action than ever before, fights in God of War mirror the pantheon of Norse creatures Kratos will face.",
+                release_date: "January 14, 2022",
+                developer: "Santa Monica Studio",
+                publisher: "Sony Interactive Entertainment",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean"],
+                features: ["Single-player", "Steam Achievements", "Full controller support", "Steam Cloud", "Steam Trading Cards"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel i5-2500k / AMD Ryzen 3 1200",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 960 / AMD R9 290X",
+                        directx: "Version 11",
+                        storage: "70 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel i5-6600k / AMD Ryzen 5 2400G",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 1060 / AMD RX 570",
+                        directx: "Version 11",
+                        storage: "70 GB available space"
+                    }
+                }
+            },
+            {
+                id: 3,
+                title: "Cyberpunk 2077",
+                platform: "steam",
+                region: "Global",
+                original_price: 59.99,
+                price: 29.99,
+                discount: 50,
+                rating: 4.2,
+                seller_name: "CD Projekt",
+                seller_verified: true,
+                image: "images/Cyberpunk 2077.png",
+                images: ["images/cyberpunk1.png", "images/cyberpunk2.png", "images/cyberpunk3.png"],
+                videos: ["videos/cyberpunk.mp4"],
+                description: "An open-world action-adventure story set in the dystopian Night City.",
+                detailed_description: "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality.",
+                release_date: "December 10, 2020",
+                developer: "CD Projekt RED",
+                publisher: "CD Projekt",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Polish", "Russian", "Japanese", "Korean", "Chinese"],
+                features: ["Single-player", "Steam Achievements", "Full controller support", "Steam Cloud", "Steam Trading Cards"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5-3570K / AMD FX-8310",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 780 / AMD Radeon RX 470",
+                        directx: "Version 12",
+                        storage: "70 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i7-4790 / AMD Ryzen 3 3200G",
+                        memory: "12 GB RAM",
+                        graphics: "NVIDIA GTX 1060 6GB / AMD Radeon RX 590",
+                        directx: "Version 12",
+                        storage: "70 GB available space"
+                    }
+                }
+            },
+            {
+                id: 4,
+                title: "The Witcher 3: Wild Hunt",
+                platform: "playstation",
+                region: "Global",
+                original_price: 39.99,
+                price: 9.99,
+                discount: 75,
+                rating: 4.9,
+                seller_name: "CD Projekt RED",
+                seller_verified: true,
+                image: "images/witcher3.jpg",
+                images: ["images/witcher31.jpg", "images/witcher32.jpg", "images/witcher33.jpg"],
+                videos: ["videos/witcher.mp4"],
+                description: "A story-driven, next-generation open world role-playing game set in a visually stunning fantasy universe.",
+                detailed_description: "The Witcher 3: Wild Hunt is a story-driven, next-generation open world role-playing game set in a visually stunning fantasy universe full of meaningful choices and impactful consequences. In The Witcher you play as the professional monster hunter, Geralt of Rivia.",
+                release_date: "May 19, 2015",
+                developer: "CD Projekt RED",
+                publisher: "CD Projekt",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Polish", "Russian", "Italian", "Portuguese", "Japanese", "Korean", "Chinese"],
+                features: ["Single-player", "Steam Achievements", "Steam Trading Cards", "Full controller support", "Steam Cloud"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7 64-bit",
+                        processor: "Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940",
+                        memory: "6 GB RAM",
+                        graphics: "Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870",
+                        directx: "Version 11",
+                        storage: "35 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel CPU Core i7 3770 3.4 GHz / AMD CPU AMD FX-8350 4 GHz",
+                        memory: "8 GB RAM",
+                        graphics: "Nvidia GPU GeForce GTX 770 / AMD GPU Radeon R9 290",
+                        directx: "Version 11",
+                        storage: "35 GB available space"
+                    }
+                }
+            },
+            {
+                id: 5,
+                title: "Red Dead Redemption 2",
+                platform: "playstation",
+                region: "Global",
+                original_price: 59.99,
+                price: 23.99,
+                discount: 60,
+                rating: 4.7,
+                seller_name: "Rockstar Games",
+                seller_verified: true,
+                image: "images/red.jpg",
+                images: ["images/red1.jpg", "images/red2.jpg", "images/red3.jpg"],
+                videos: ["videos/red.mp4"],
+                description: "An epic tale of life in America's unforgiving heartland.",
+                category: "action",
+                detailed_description: "Red Dead Redemption 2 is an epic tale of life in America's unforgiving heartland. The game's vast and atmospheric world will also provide the foundation for a brand new online multiplayer experience.",
+                release_date: "December 5, 2019",
+                developer: "Rockstar Studios",
+                publisher: "Rockstar Games",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese"],
+                features: ["Single-player", "Online multiplayer", "Steam Achievements", "Full controller support", "Steam Cloud"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7 SP1 64-bit",
+                        processor: "Intel Core i5-2500K / AMD FX-6300",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 770 2GB / AMD Radeon R9 280",
+                        directx: "Version 11",
+                        storage: "150 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i7-4770K / AMD Ryzen 5 1500X",
+                        memory: "12 GB RAM",
+                        graphics: "NVIDIA GTX 1060 6GB / AMD Radeon RX 480 4GB",
+                        directx: "Version 11",
+                        storage: "150 GB available space"
+                    }
+                }
+            },
+            {
+                id: 6,
+                title: "Grand Theft Auto V",
+                platform: "playstation",
+                region: "Global",
+                original_price: 29.99,
+                price: 14.99,
+                discount: 50,
+                rating: 4.5,
+                seller_name: "Rockstar Games",
+                seller_verified: true,
+                image: "images/gta.jpg",
+                images: ["images/gta1.jpg", "images/gta2.jpg", "images/gta3.jpg"],
+                videos: ["videos/gta.mp4"],
+                description: "Experience the biggest, most diverse adventure ever created.",
+                category: "action",
+                detailed_description: "When a young street hustler, a retired bank robber and a terrifying psychopath find themselves entangled with some of the most frightening and deranged elements of the criminal underworld, the U.S. government and the entertainment industry, they must pull off a series of dangerous heists to survive.",
+                release_date: "April 14, 2015",
+                developer: "Rockstar North",
+                publisher: "Rockstar Games",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean"],
+                features: ["Single-player", "Online multiplayer", "Steam Achievements", "Full controller support", "Steam Workshop", "Steam Cloud"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core 2 Quad CPU Q6600 @ 2.40GHz / AMD Phenom 9850 Quad-Core",
+                        memory: "4 GB RAM",
+                        graphics: "NVIDIA 9800 GT 1GB / AMD HD 4870 1GB",
+                        directx: "Version 10",
+                        storage: "110 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5 3470 @ 3.2GHz / AMD X8 FX-8350 @ 4GHz",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 660 2GB / AMD HD 7870 2GB",
+                        directx: "Version 11",
+                        storage: "110 GB available space"
+                    }
+                }
+            },
+            {
+                id: 7,
+                title: "ARK: Survival Evolved",
+                platform: "steam",
+                region: "Global",
+                original_price: 49.99,
+                price: 14.99,
+                discount: 70,
+                rating: 4.3,
+                seller_name: "Studio Wildcard",
+                seller_verified: true,
+                image: "images/ark.jpg",
+                images: ["images/ark1.jpg", "images/ark2.jpg", "images/ark3.jpg"],
+                videos: ["videos/ark.mp4"],
+                description: "Stranded on an island full of dinosaurs, you must survive and thrive.",
+                category: "survival",
+                detailed_description: "ARK: Survival Evolved takes on the survival genre with a unique blend of emergent multiplayer cooperation and competition. Awake naked and starving on the beach of a mysterious island among a tribe of other confused humans, you must hunt, harvest resources, craft items, grow crops, research technologies, and build shelters to withstand the elements.",
+                release_date: "August 27, 2017",
+                developer: "Studio Wildcard",
+                publisher: "Studio Wildcard",
+                age_rating: "T - Teen",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese"],
+                features: ["Single-player", "Online multiplayer", "Co-op", "Steam Workshop", "Steam Achievements"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7/8.1/10 64-bit",
+                        processor: "Intel Core i5-2400/AMD FX-8320",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GTX 670 2GB/AMD Radeon HD 7870 2GB",
+                        directx: "Version 10",
+                        storage: "60 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5-4670K/AMD Ryzen 5 1500X",
+                        memory: "16 GB RAM",
+                        graphics: "NVIDIA GTX 1070/AMD Radeon RX 580",
+                        directx: "Version 11",
+                        storage: "60 GB available space"
+                    }
+                }
+            },
+            {
+                id: 8,
+                title: "Rust",
+                platform: "steam",
+                region: "Global",
+                original_price: 39.99,
+                price: 19.99,
+                discount: 50,
+                rating: 4.1,
+                seller_name: "Facepunch Studios",
+                seller_verified: true,
+                image: "images/rust.jpg",
+                images: ["images/rust1.jpg", "images/rust2.jpg", "images/rust3.jpg"],
+                videos: ["video-2"],
+                description: "The only aim in Rust is to survive in a hostile world.",
+                category: "survival",
+                detailed_description: "Rust is a multiplayer survival video game developed by Facepunch Studios. The objective of Rust is to survive in the wilderness using gathered or stolen materials. Players must successfully manage their hunger, thirst, and health, or risk dying.",
+                release_date: "February 8, 2018",
+                developer: "Facepunch Studios",
+                publisher: "Facepunch Studios",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean"],
+                features: ["Online multiplayer", "Steam Workshop", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 8.1 64bit",
+                        processor: "Intel Core i7-3770 / AMD FX-9590",
+                        memory: "10 GB RAM",
+                        graphics: "GTX 670 2GB / AMD R9 280",
+                        directx: "Version 11",
+                        storage: "25 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64bit",
+                        processor: "Intel Core i7-4690K / AMD Ryzen 5 1600",
+                        memory: "16 GB RAM",
+                        graphics: "GTX 980 / AMD R9 Fury",
+                        directx: "Version 12",
+                        storage: "25 GB available space"
+                    }
+                }
+            },
+            {
+                id: 9,
+                title: "Raft",
+                platform: "nintendo",
+                region: "Global",
+                original_price: 19.99,
+                price: 15.99,
+                discount: 20,
+                rating: 4.5,
+                seller_name: "Redbeet Interactive",
+                seller_verified: true,
+                image: "images/raft.jpg",
+                images: ["images/raft1.jpg", "images/raft2.jpg", "images/raft3.jpg"],
+                videos: ["videos/raft.mp4"],
+                description: "Survive on a raft in the middle of the ocean.",
+                category: "survival",
+                detailed_description: "Raft throws you and your friends into an epic oceanic adventure! Alone or together, players battle to survive a perilous voyage across a vast sea! Gather debris, scavenge reefs and build your own floating home, but be wary of the man-eating sharks!",
+                release_date: "June 20, 2022",
+                developer: "Redbeet Interactive",
+                publisher: "Axolot Games",
+                age_rating: "E10+ - Everyone 10+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese"],
+                features: ["Single-player", "Online co-op", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7",
+                        processor: "Intel Core i5 2.6GHz / AMD equivalent",
+                        memory: "4 GB RAM",
+                        graphics: "GeForce GTX 500 series / AMD equivalent",
+                        directx: "Version 11",
+                        storage: "3 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10",
+                        processor: "Intel Core i5 3.0GHz / AMD equivalent",
+                        memory: "8 GB RAM",
+                        graphics: "GeForce GTX 700 series / AMD equivalent",
+                        directx: "Version 11",
+                        storage: "3 GB available space"
+                    }
+                }
+            },
+            {
+                id: 10,
+                title: "Fortnite",
+                platform: "epic",
+                region: "Global",
+                original_price: 0.00,
+                price: 0.00,
+                discount: 0,
+                rating: 4.2,
+                seller_name: "Epic Games",
+                seller_verified: true,
+                image: "images/fortnite.jpg",
+                images: ["images/fortnite1.jpg", "images/fortnite2.jpg", "images/fortnite3.jpg"],
+                videos: ["videos/fn.mp4"],
+                description: "The world's most popular Battle Royale game.",
+                category: "battle-royale",
+                detailed_description: "Fortnite is a free-to-play Battle Royale game with numerous game modes for every type of game player. Watch a concert, build an island or fight.",
+                release_date: "July 25, 2017",
+                developer: "Epic Games",
+                publisher: "Epic Games",
+                age_rating: "T - Teen",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese", "Arabic"],
+                features: ["Online multiplayer", "Cross-platform", "Battle Royale", "Creative Mode", "Save the World"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7/8/10 64-bit",
+                        processor: "Core i3-3225 3.3 GHz",
+                        memory: "4 GB RAM",
+                        graphics: "Intel HD 4000",
+                        directx: "Version 11",
+                        storage: "26 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Core i5-7300U 3.5 GHz",
+                        memory: "8 GB RAM",
+                        graphics: "Nvidia GTX 960, AMD R9 280",
+                        directx: "Version 11",
+                        storage: "26 GB available space"
+                    }
+                }
+            },
+            {
+                id: 11,
+                title: "The Forest",
+                platform: "steam",
+                region: "Global",
+                original_price: 19.99,
+                price: 9.99,
+                discount: 50,
+                rating: 4.6,
+                seller_name: "Endnight Games Ltd",
+                seller_verified: true,
+                image: "images/theforest.jpg",
+                images: ["images/theforest1.jpg", "images/theforest2.jpg", "images/theforest3.jpg"],
+                videos: ["video-5"],
+                description: "Survive in a cannibalistic peninsula after a plane crash.",
+                category: "survival",
+                detailed_description: "As the lone survivor of a passenger jet crash, you find yourself in a mysterious forest battling to stay alive against a society of cannibalistic mutants. Build, explore, survive in this terrifying first person survival horror simulator.",
+                release_date: "April 30, 2018",
+                developer: "Endnight Games Ltd",
+                publisher: "Endnight Games Ltd",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean"],
+                features: ["Single-player", "Online co-op", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7",
+                        processor: "Intel Dual-Core 2.4 GHz / AMD Dual-Core 2.8 GHz",
+                        memory: "4 GB RAM",
+                        graphics: "NVIDIA GeForce 8800GT / AMD Radeon HD 2600 Pro",
+                        directx: "Version 9.0",
+                        storage: "5 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10",
+                        processor: "Quad Core Processor",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 560 / AMD Radeon HD 6950",
+                        directx: "Version 11",
+                        storage: "5 GB available space"
+                    }
+                }
+            },
+            {
+                id: 12,
+                title: "Euro Truck Simulator 2",
+                platform: "steam",
+                region: "Global",
+                original_price: 19.99,
+                price: 4.99,
+                discount: 75,
+                rating: 4.8,
+                seller_name: "SCS Software",
+                seller_verified: true,
+                image: "images/etc.jpg",
+                images: ["images/etc1.jpg", "images/etc2.jpg", "images/etc3.jpg"],
+                videos: ["video-6"],
+                description: "Drive across Europe delivering cargo in authentic trucks.",
+                category: "simulation",
+                detailed_description: "Travel across Europe as king of the road, a trucker who delivers important cargo across impressive distances! With dozens of cities to explore from the UK, Belgium, Germany, Italy, the Netherlands, Poland, and many more.",
+                release_date: "October 19, 2012",
+                developer: "SCS Software",
+                publisher: "SCS Software",
+                age_rating: "E - Everyone",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Polish", "Czech"],
+                features: ["Single-player", "Steam Workshop", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7",
+                        processor: "Dual core CPU 2.4 GHz",
+                        memory: "4 GB RAM",
+                        graphics: "GeForce GTS 450-class",
+                        directx: "Version 9.0c",
+                        storage: "12 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10",
+                        processor: "Quad core CPU 3.0 GHz",
+                        memory: "6 GB RAM",
+                        graphics: "GeForce GTX 760-class",
+                        directx: "Version 11",
+                        storage: "12 GB available space"
+                    }
+                }
+            },
+            {
+                id: 13,
+                title: "American Truck Simulator",
+                platform: "nintendo",
+                region: "Global",
+                original_price: 19.99,
+                price: 4.99,
+                discount: 75,
+                rating: 4.7,
+                seller_name: "SCS Software",
+                seller_verified: true,
+                image: "images/atc.jpg",
+                images: ["images/atc1.jpg", "images/atc2.jpg", "images/atc3.jpg"],
+                videos: ["video-7"],
+                description: "Experience legendary American trucks and deliver cargo across the USA.",
+                category: "simulation",
+                detailed_description: "American Truck Simulator takes you on a journey through the breathtaking landscapes and widely recognized landmarks around the States. Experience legendary American trucks and deliver various cargoes across sunny California, sandy Nevada, and the Grand Canyon State of Arizona.",
+                release_date: "February 2, 2016",
+                developer: "SCS Software",
+                publisher: "SCS Software",
+                age_rating: "E - Everyone",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Polish", "Czech"],
+                features: ["Single-player", "Steam Workshop", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7 64-bit",
+                        processor: "Dual core CPU 2.4 GHz",
+                        memory: "4 GB RAM",
+                        graphics: "GeForce GTS 450-class (Intel HD 4000)",
+                        directx: "Version 9.0c",
+                        storage: "3 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Quad core CPU 3.0 GHz",
+                        memory: "6 GB RAM",
+                        graphics: "GeForce GTX 760-class",
+                        directx: "Version 11",
+                        storage: "3 GB available space"
+                    }
+                }
+            },
+            {
+                id: 14,
+                title: "SnowRunner",
+                platform: "xbox",
+                region: "Global",
+                original_price: 49.99,
+                price: 24.99,
+                discount: 50,
+                rating: 4.4,
+                seller_name: "Saber Interactive",
+                seller_verified: true,
+                image: "images/snow.jpg",
+                images: ["images/snow1.jpg", "images/snow2.jpg", "images/snow3.jpg"],
+                videos: ["videos/sr.mp4"],
+                description: "Overcome extreme terrain with powerful vehicles.",
+                category: "simulation",
+                detailed_description: "Get ready for the next-generation off-road experience! SnowRunner puts you in the driver's seat of powerful vehicles as you conquer extreme open environments with the most advanced terrain simulation ever.",
+                release_date: "April 28, 2020",
+                developer: "Saber Interactive",
+                publisher: "Focus Entertainment",
+                age_rating: "E - Everyone",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Polish"],
+                features: ["Single-player", "Online co-op", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7/8.1/10 64-bit",
+                        processor: "Intel i3-4130 3.4 GHz / AMD FX-6300 3.5 GHz",
+                        memory: "8 GB RAM",
+                        graphics: "Intel HD Graphics 530 / NVIDIA GeForce GTX 660 / AMD Radeon R9 270",
+                        directx: "Version 11",
+                        storage: "20 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel i5-7400 3.0 GHz / AMD Ryzen 5 1500X 3.5 GHz",
+                        memory: "16 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 8GB",
+                        directx: "Version 11",
+                        storage: "20 GB available space"
+                    }
+                }
+            },
+            {
+                id: 15,
+                title: "MudRunner",
+                platform: "xbox",
+                region: "Global",
+                original_price: 24.99,
+                price: 6.24,
+                discount: 75,
+                rating: 4.2,
+                seller_name: "Saber Interactive",
+                seller_verified: true,
+                image: "images/mud.jpg",
+                images: ["images/mud.jpg", "images/mud.jpg", "images/mud.jpg"],
+                videos: ["video-9"],
+                description: "Ultimate off-road experience with realistic mud physics.",
+                category: "simulation",
+                detailed_description: "MudRunner is the ultimate off-road experience putting the players in the driver seat and dares them to take charge of incredible all-terrain vehicles, venturing across extreme Siberian landscapes with only a map and compass as guides!",
+                release_date: "October 31, 2017",
+                developer: "Saber Interactive",
+                publisher: "Focus Entertainment",
+                age_rating: "E - Everyone",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Polish"],
+                features: ["Single-player", "Online multiplayer", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows Vista/7/8/10 64-bit",
+                        processor: "Intel dual-core 2.5 GHz",
+                        memory: "4 GB RAM",
+                        graphics: "NVIDIA GeForce 9600 GT",
+                        directx: "Version 9.0c",
+                        storage: "1 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 660",
+                        directx: "Version 11",
+                        storage: "1 GB available space"
+                    }
+                }
+            },
+            {
+                id: 16,
+                title: "Counter-Strike: Global Offensive",
+                platform: "steam",
+                region: "Global",
+                original_price: 0.00,
+                price: 0.00,
+                discount: 0,
+                rating: 4.5,
+                seller_name: "Valve",
+                seller_verified: true,
+                image: "images/cs.jpg",
+                images: ["images/cs1.jpg", "images/cs2.jpg", "images/cs3.jpg"],
+                videos: ["video-10"],
+                description: "The world's most popular tactical FPS game.",
+                category: "fps",
+                detailed_description: "Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content.",
+                release_date: "August 21, 2012",
+                developer: "Valve",
+                publisher: "Valve",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese"],
+                features: ["Online multiplayer", "Steam Workshop", "Steam Achievements", "Competitive matchmaking"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 7/Vista/XP",
+                        processor: "Intel Core 2 Duo E6600 / AMD Phenom X3 8750",
+                        memory: "2 GB RAM",
+                        graphics: "Video card must be 256 MB or more",
+                        directx: "Version 9.0c",
+                        storage: "15 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10",
+                        processor: "Intel Core i5-4460 / AMD FX-6300",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 1050 / AMD Radeon RX 460",
+                        directx: "Version 11",
+                        storage: "15 GB available space"
+                    }
+                }
+            },
+            {
+                id: 17,
+                title: "Sons of The Forest",
+                platform: "steam",
+                region: "Global",
+                original_price: 29.99,
+                price: 29.99,
+                discount: 0,
+                rating: 4.1,
+                seller_name: "Endnight Games Ltd",
+                seller_verified: true,
+                image: "images/son.jpg",
+                images: ["images/son1.jpg", "images/son2.jpg", "images/son3.jpg"],
+                videos: ["video-11"],
+                description: "Survive in a cannibalistic island in this sequel to The Forest.",
+                category: "survival",
+                detailed_description: "Sent to find a missing billionaire on a remote island, you find yourself in a cannibal-infested hellscape. Craft, build, and struggle to survive, alone or with friends, in this terrifying new open-world survival horror simulator.",
+                release_date: "February 23, 2023",
+                developer: "Endnight Games Ltd",
+                publisher: "Endnight Games Ltd",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean"],
+                features: ["Single-player", "Online co-op", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64bit",
+                        processor: "INTEL CORE I5-8400 / AMD RYZEN 3 3300X",
+                        memory: "12 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 570 4GB",
+                        directx: "Version 11",
+                        storage: "20 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64bit",
+                        processor: "INTEL CORE I7-8700K / AMD RYZEN 5 3600X",
+                        memory: "16 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 1080 Ti / AMD Radeon RX 6600 XT",
+                        directx: "Version 11",
+                        storage: "20 GB available space"
+                    }
+                }
+            },
+            {
+                id: 18,
+                title: "Mortal Kombat 11",
+                platform: "playstation",
+                region: "Global",
+                original_price: 49.99,
+                price: 12.49,
+                discount: 75,
+                rating: 4.3,
+                seller_name: "NetherRealm Studios",
+                seller_verified: true,
+                image: "images/11.jpg",
+                images: ["images/111.jpg", "images/112.jpg", "images/113.jpg"],
+                videos: ["videos/mk.mp4"],
+                description: "The legendary fighting game franchise returns with brutal combat.",
+                detailed_description: "Mortal Kombat is back and better than ever in the next evolution of the iconic franchise. The all new Custom Character Variations give you unprecedented control to customize the fighters and make them your own.",
+                release_date: "April 23, 2019",
+                developer: "NetherRealm Studios",
+                publisher: "Warner Bros. Games",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese"],
+                features: ["Single-player", "Online multiplayer", "Steam Achievements", "Full controller support"],
+                system_requirements: {
+                    minimum: {
+                        os: "64-bit Windows 7 / Windows 10",
+                        processor: "Intel Core i5-750, 2.67 GHz / AMD Phenom II X4 965, 3.4 GHz",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 670 / GeForce GTX 1050 / AMD Radeon HD 7950",
+                        directx: "Version 11",
+                        storage: "60 GB available space"
+                    },
+                    recommended: {
+                        os: "64-bit Windows 10",
+                        processor: "Intel Core i5-2300, 2.8 GHz / AMD FX-6300, 3.5GHz",
+                        memory: "8 GB RAM",
+                        graphics: "NVIDIA GeForce GTX 780 / GeForce GTX 1060-6GB / AMD Radeon R9 290",
+                        directx: "Version 11",
+                        storage: "60 GB available space"
+                    }
+                }
+            },
+            {
+                id: 19,
+                title: "V-Bucks Gift Card",
+                platform: "Epic Games",
+                region: "Global",
+                original_price: 25.00,
+                price: 21.99,
+                discount: 12,
+                rating: 4.8,
+                seller_name: "Epic Games",
+                seller_verified: true,
+                image: "images/vbucks.jpg",
+                description: "Get V-Bucks to spend in Fortnite on new outfits, emotes, pickaxes and more!",
+                category: "gift-card",
+                detailed_description: "The V-Bucks Gift Card allows you to add in-game currency to your Fortnite account, usable on cosmetic items, Battle Passes, and more. Perfect for fans of Fortnite looking to enhance their experience.",
+                release_date: "March 15, 2021",
+                developer: "Epic Games",
+                publisher: "Epic Games",
+                age_rating: "E - Everyone",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Arabic"],
+                features: ["Redeemable Code", "Usable on Fortnite", "Cross-platform support"]
+            },
+            {
+                id: 20,
+                title: "Robux Gift Card",
+                platform: "Roblox",
+                region: "Global",
+                original_price: 20.00,
+                price: 18.49,
+                discount: 8,
+                rating: 4.7,
+                seller_name: "Roblox Corporation",
+                seller_verified: true,
+                image: "images/robux.jpg",
+                description: "Redeem this gift card to get Robux and customize your Roblox experience.",
+                category: "gift card"
+            },
+            {
+                id: 21,
+                title: "League of Legends Riot Points Gift Card",
+                platform: "Riot Games",
+                region: "Global",
+                original_price: 25.00,
+                price: 22.49,
+                discount: 10,
+                rating: 4.6,
+                seller_name: "Riot Games",
+                seller_verified: true,
+                image: "images/riot.jpg",
+                description: "Use Riot Points to unlock skins, champions, and more in League of Legends.",
+                category: "gift card"
+            },
+            {
+                id: 22,
+                title: "Brawl Stars Gems Gift Card",
+                platform: "Supercell",
+                region: "Global",
+                original_price: 15.00,
+                price: 13.49,
+                discount: 10,
+                rating: 4.5,
+                seller_name: "Supercell",
+                seller_verified: true,
+                image: "images/brawlstars.jpg",
+                description: "Buy gems to unlock brawlers, skins, and in-game rewards in Brawl Stars.",
+                category: "gift card"
+            },
+            {
+                id: 23,
+                title: "FC 25 FIFA Points Gift Card",
+                platform: "EA Sports",
+                region: "Global",
+                original_price: 20.00,
+                price: 17.99,
+                discount: 10,
+                rating: 4.4,
+                seller_name: "Electronic Arts",
+                seller_verified: true,
+                image: "images/fifa.jpg",
+                description: "Use FIFA Points to purchase packs and build your Ultimate Team in FC 25.",
+                category: "gift card"
+            },
+            {
+                id: 24,
+                title: "Microsoft Office 365 Subscription",
+                platform: "Microsoft",
+                region: "Global",
+                original_price: 69.99,
+                price: 49.99,
+                discount: 29,
+                rating: 4.9,
+                seller_name: "Microsoft Corporation",
+                seller_verified: true,
+                image: "images/office365.jpg",
+                description: "Access Word, Excel, PowerPoint, Outlook and more with a 1-year Office 365 subscription.",
+                category: "software"
+            },
+            {
+                id: 25,
+                title: "Windows 11 Pro License Key",
+                platform: "Microsoft",
+                region: "Global",
+                original_price: 139.00,
+                price: 24.99,
+                discount: 82,
+                rating: 4.8,
+                seller_name: "Microsoft Authorized",
+                seller_verified: true,
+                image: "images/windows11.jpg",
+                description: "Genuine license key for Windows 11 Pro. Activate your PC instantly.",
+                category: "software"
+            },
+            {
+                id: 26,
+                title: "GTA 6",
+                platform: "playstation",
+                region: "Global",
+                original_price: 69.99,
+                price: 69.99,
+                discount: 0,
+                rating: 0,
+                seller_name: "Rockstar Games",
+                seller_verified: true,
+                image: "images/gta6.png",
+                images: ["images/gta6-1.png", "images/gta6-2.png", "images/gta6-3.png"],
+                videos: ["videos/gta6.mp4"],
+                description: "The next evolution in open-world crime epics.",
+                category: "upcoming",
+                detailed_description: "GTA 6 brings an expansive world with a dual-protagonist story, seamless city transitions, and next-gen visuals. Explore Vice City like never before.",
+                release_date: "Fall 2025",
+                developer: "Rockstar North",
+                publisher: "Rockstar Games",
+                age_rating: "M - Mature 17+",
+                languages: ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Chinese"],
+                features: ["Single-player", "Online multiplayer", "Full controller support", "Open World", "Story Rich"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i7-4770K / AMD Ryzen 5 1600",
+                        memory: "16 GB RAM",
+                        graphics: "NVIDIA GTX 1080 / AMD RX 5700 XT",
+                        directx: "Version 12",
+                        storage: "150 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 11 64-bit",
+                        processor: "Intel Core i9-9900K / AMD Ryzen 7 5800X",
+                        memory: "32 GB RAM",
+                        graphics: "NVIDIA RTX 3080 / AMD RX 7900 XT",
+                        directx: "Version 12",
+                        storage: "150 GB SSD space"
+                    }
+                }
+            },
+            {
+                id: 27,
+                title: "REMATCH",
+                platform: "steam",
+                region: "Global",
+                original_price: 39.99,
+                price: 39.99,
+                discount: 0,
+                rating: 0,
+                seller_name: "IndieForge",
+                seller_verified: true,
+                image: "images/rematch.png",
+                images: ["images/rematch1.png", "images/rematch2.png"],
+                videos: ["videos/rematch.mp4"],
+                description: "A stylish, high-stakes fighting game with deep lore.",
+                category: "upcoming",
+                detailed_description: "REMATCH is a competitive fighting experience featuring diverse characters, parry mechanics, and intricate arenas. Built for esports and casual brawls alike.",
+                release_date: "Q4 2025",
+                developer: "IndieForge",
+                publisher: "IndieForge",
+                age_rating: "T - Teen",
+                languages: ["English", "French", "Japanese"],
+                features: ["Online multiplayer", "Competitive PvP", "Controller Support", "Crossplay"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5-7600 / AMD Ryzen 3 3100",
+                        memory: "8 GB RAM",
+                        graphics: "GTX 970 / RX 580",
+                        directx: "Version 11",
+                        storage: "30 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i7-9700K / AMD Ryzen 5 5600X",
+                        memory: "16 GB RAM",
+                        graphics: "RTX 2060 / RX 6600 XT",
+                        directx: "Version 12",
+                        storage: "30 GB SSD space"
+                    }
+                }
+            },
+            {
+                id: 28,
+                title: "Dune: Awakening",
+                platform: "steam",
+                region: "Global",
+                original_price: 59.99,
+                price: 59.99,
+                discount: 0,
+                rating: 0,
+                seller_name: "Funcom",
+                seller_verified: true,
+                image: "images/dune.jpg",
+                images: ["images/dune1.png", "images/dune2.png", "images/dune3.png"],
+                videos: ["videos/dune.mp4"],
+                description: "Survive and dominate the unforgiving world of Arrakis.",
+                category: "upcoming",
+                detailed_description: "Dune: Awakening merges MMO and survival elements in the harsh deserts of Arrakis. Harvest spice, build alliances, and shape the fate of the known universe.",
+                release_date: "TBA 2025",
+                developer: "Funcom",
+                publisher: "Funcom",
+                age_rating: "T - Teen",
+                languages: ["English", "Spanish", "French", "German", "Portuguese"],
+                features: ["Massively Multiplayer", "Survival", "Crafting", "Exploration", "Faction-based Warfare"],
+                system_requirements: {
+                    minimum: {
+                        os: "Windows 10 64-bit",
+                        processor: "Intel Core i5-8400 / AMD Ryzen 5 2600",
+                        memory: "12 GB RAM",
+                        graphics: "GTX 1060 / RX 590",
+                        directx: "Version 12",
+                        storage: "80 GB available space"
+                    },
+                    recommended: {
+                        os: "Windows 11 64-bit",
+                        processor: "Intel Core i7-10700K / AMD Ryzen 7 5800X",
+                        memory: "16 GB RAM",
+                        graphics: "RTX 3060 / RX 6700 XT",
+                        directx: "Version 12",
+                        storage: "80 GB SSD space"
+                    }
+                }
+            }
+
+        ];
+
+        function loadGameDetails() {
+            const gameId = parseInt(new URLSearchParams(window.location.search).get('id'));
+            currentGame = products.find(p => p.id === gameId);
+            if (!currentGame) {
+                document.getElementById('gameDetails').innerHTML = '<p>Game not found</p>';
+                return;
+            }
+
+            const gameDetailsContainer = document.getElementById('gameDetails');
+            const min = currentGame.system_requirements?.minimum;
+            const rec = currentGame.system_requirements?.recommended;
+
+            gameDetailsContainer.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
+                    <div>
+                        <!-- Main Media Display -->
+                        <div id="mainMedia" style="width: 100%; height: 350px; border-radius: 0.75rem; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(30, 60, 114, 0.2); overflow: hidden;">
+                            ${currentGame.videos && currentGame.videos.length > 0 ?
+                    `<video src="${currentGame.videos[0]}" style="width: 100%; height: 100%; object-fit: cover;" controls></video>` :
+                    `<img src="${currentGame.image}" alt="${currentGame.title}" style="width: 100%; height: 100%; object-fit: cover;">`
+                }
+                        </div>
+                        
+                        <!-- Media Gallery -->
+                        <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.5rem 0;">
+                            ${currentGame.videos && currentGame.videos.length > 0 ? currentGame.videos.map((video, index) => `
+                                <div onclick="showMedia('video', ${index})" style="min-width: 80px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s;">
+                                    <span style="color: white; font-size: 1.2rem;">▶</span>
+                                </div>
+                            `).join('') : ''}
+                            ${currentGame.images && currentGame.images.length > 0 ? currentGame.images.map((image, index) => `
+                                <img src="${image}" alt="Screenshot ${index + 1}" onclick="showMedia('image', ${index})" style="min-width: 80px; height: 60px; object-fit: cover; border-radius: 0.5rem; opacity: 0.8; cursor: pointer; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                            `).join('') : ''}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; color: #1e3c72;">${currentGame.title}</h1>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.25rem;">
+                                <span style="color: #fbbf24;">★</span>
+                                <span style="color: #1e3c72; font-weight: 600;">${currentGame.rating}</span>
+                                <span style="color: #9ca3af; font-size: 0.875rem;">(Reviews)</span>
+                            </div>
+                        </div>
+
+                        <!-- Variant Selection -->
+                        <div style="background: rgba(30, 60, 114, 0.05); padding: 1.5rem; border-radius: 0.75rem; margin-bottom: 1.5rem; border: 1px solid rgba(30, 60, 114, 0.1);">
+                            <h3 style="color: #1e3c72; margin-bottom: 1rem; font-size: 1.1rem;">Variant</h3>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 0.5rem; border: 2px solid #667eea; flex: 1;">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎮</div>
+                                    <div style="font-size: 0.875rem; color: #1e3c72; font-weight: 600;">Platform</div>
+                                    <div style="font-size: 0.875rem; color: #667eea;">${currentGame.platform}</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 0.5rem; border: 1px solid #e5e7eb; flex: 1;">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌍</div>
+                                    <div style="font-size: 0.875rem; color: #1e3c72; font-weight: 600;">Region</div>
+                                    <div style="font-size: 0.875rem; color: #9ca3af;">${currentGame.region}</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 0.5rem; border: 1px solid #e5e7eb; flex: 1;">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔑</div>
+                                    <div style="font-size: 0.875rem; color: #1e3c72; font-weight: 600;">Type</div>
+                                    <div style="font-size: 0.875rem; color: #9ca3af;">Key</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <span style="color: #9ca3af; text-decoration: line-through; font-size: 1.125rem;">$${currentGame.original_price.toFixed(2)}</span>
+                                <span style="color: #1e3c72; font-size: 2rem; font-weight: 700;">$${currentGame.price.toFixed(2)}</span>
+                                <span style="background: #dc2626; color: #fff; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-weight: 700; font-size: 0.875rem;">-${currentGame.discount}%</span>
+                            </div>
+                            
+                            <button onclick="addToCart(${currentGame.id})" style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; border-radius: 0.75rem; font-size: 1.125rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem;">
+                                🛒 Add to cart
+                            </button>
+                            
+                            <div style="background: rgba(30, 60, 114, 0.05); padding: 1rem; border-radius: 0.5rem; border: 1px solid rgba(30, 60, 114, 0.1);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span style="font-size: 1.5rem;">👤</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: #1e3c72;">You're buying from a business seller</div>
+                                        <div style="color: #667eea; font-weight: 600; font-size: 0.875rem;">${currentGame.seller_name}</div>
+                                    </div>
+                                    ${currentGame.seller_verified ? '<span style="background: #059669; color: #fff; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">EXCELLENT SELLER</span>' : ''}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: #9ca3af; font-size: 0.875rem;">
+                                    <span>👍</span>
+                                    <span>98%</span>
+                                    <span>🛍️</span>
+                                    <span>46931</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Information Tabs -->
+                <div style="background: white; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 20px rgba(30, 60, 114, 0.1); border: 1px solid rgba(30, 60, 114, 0.1);">
+                    <div style="display: flex; border-bottom: 1px solid rgba(30, 60, 114, 0.1);">
+                        <button class="tab-button active" onclick="showTab('description')" style="padding: 1rem 2rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #667eea; border-bottom: 2px solid #667eea;">About this item</button>
+                        <button class="tab-button" onclick="showTab('details')" style="padding: 1rem 2rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #9ca3af;">Basic info</button>
+                        <button class="tab-button" onclick="showTab('requirements')" style="padding: 1rem 2rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #9ca3af;">System requirements</button>
+                        <button class="tab-button" onclick="showTab('media')" style="padding: 1rem 2rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #9ca3af;">Media Gallery</button>
+                    </div>
+                    
+                    <div id="description" class="tab-content active" style="padding: 2rem;">
+                        <p style="color: #1e3c72; line-height: 1.6; font-size: 1rem; margin-bottom: 1.5rem;">${currentGame.detailed_description}</p>
+                        <h4 style="color: #1e3c72; margin-bottom: 1rem; font-size: 1.2rem;">Game Features:</h4>
+                        <ul style="color: #9ca3af; line-height: 1.6;">
+                            ${currentGame.features?.map(feature => `<li style="margin-bottom: 0.5rem;">• ${feature}</li>`).join('') || '<li>No features listed</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div id="details" class="tab-content" style="padding: 2rem; display: none;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Release Date:</h4>
+                                <p style="color: #9ca3af;">${currentGame.release_date || 'Not specified'}</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Developer:</h4>
+                                <p style="color: #9ca3af;">${currentGame.developer || 'Not specified'}</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Publisher:</h4>
+                                <p style="color: #9ca3af;">${currentGame.publisher || 'Not specified'}</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Age Rating:</h4>
+                                <p style="color: #9ca3af;">${currentGame.age_rating || 'Not rated'}</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Supported Languages:</h4>
+                            <p style="color: #9ca3af;">${currentGame.languages?.join(', ') || 'English'}</p>
+                        </div>
+                    </div>
+                    
+                    <div id="requirements" class="tab-content" style="padding: 2rem; display: none;">
+                        ${min || rec ? `
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                            <div>
+                                <h4 style="color: #1e3c72; margin-bottom: 1rem;">Minimum Requirements:</h4>
+                                <div style="color: #9ca3af; line-height: 1.6;">
+                                    ${min ? `
+                                    <p><strong>OS:</strong> ${min.os}</p>
+                                    <p><strong>Processor:</strong> ${min.processor}</p>
+                                    <p><strong>Memory:</strong> ${min.memory}</p>
+                                    <p><strong>Graphics:</strong> ${min.graphics}</p>
+                                    <p><strong>DirectX:</strong> ${min.directx}</p>
+                                    <p><strong>Storage:</strong> ${min.storage}</p>
+                                    ` : '<p>Not specified</p>'}
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="color: #1e3c72; margin-bottom: 1rem;">Recommended Requirements:</h4>
+                                <div style="color: #9ca3af; line-height: 1.6;">
+                                    ${rec ? `
+                                    <p><strong>OS:</strong> ${rec.os}</p>
+                                    <p><strong>Processor:</strong> ${rec.processor}</p>
+                                    <p><strong>Memory:</strong> ${rec.memory}</p>
+                                    <p><strong>Graphics:</strong> ${rec.graphics}</p>
+                                    <p><strong>DirectX:</strong> ${rec.directx}</p>
+                                    <p><strong>Storage:</strong> ${rec.storage}</p>
+                                    ` : '<p>Not specified</p>'}
+                                </div>
+                            </div>
+                        </div>
+                        ` : '<p>System requirements not specified for this game.</p>'}
+                    </div>
+                    
+                    <div id="media" class="tab-content" style="padding: 2rem; display: none;">
+                        <h4 style="color: #1e3c72; margin-bottom: 1.5rem;">Videos & Screenshots</h4>
+                        ${(currentGame.videos && currentGame.videos.length > 0) || (currentGame.images && currentGame.images.length > 0) ? `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            ${currentGame.videos && currentGame.videos.length > 0 ? currentGame.videos.map((video, index) => `
+                                <div style="aspect-ratio: 16/9; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);">
+                                    <video src="${video}" style="width: 100%; height: 100%; object-fit: cover;" controls></video>
+                                </div>
+                            `).join('') : ''}
+                            ${currentGame.images && currentGame.images.length > 0 ? currentGame.images.map((image, index) => `
+                                <div style="aspect-ratio: 16/9; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);">
+                                    <img src="${image}" alt="Screenshot ${index + 1}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showMedia('image', ${index})">
+                                </div>
+                            `).join('') : ''}
+                        </div>
+                        ` : '<p>No media available for this game.</p>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function showMedia(type, index) {
+            const mainMedia = document.getElementById('mainMedia');
+            if (type === 'video' && currentGame.videos && currentGame.videos.length > index) {
+                mainMedia.innerHTML = `<video src="${currentGame.videos[index]}" style="width: 100%; height: 100%; object-fit: cover;" controls></video>`;
+            } else if (type === 'image' && currentGame.images && currentGame.images.length > index) {
+                mainMedia.innerHTML = `<img src="${currentGame.images[index]}" alt="${currentGame.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            } else {
+                // Fallback to main image if media not found
+                mainMedia.innerHTML = `<img src="${currentGame.image}" alt="${currentGame.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            }
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.style.color = '#9ca3af';
+                button.style.borderBottom = 'none';
+            });
+
+            // Show selected tab content
+            const tabContent = document.getElementById(tabName);
+            if (tabContent) {
+                tabContent.style.display = 'block';
+            }
+
+            // Add active styling to selected tab button
+            event.target.style.color = '#667eea';
+            event.target.style.borderBottom = '2px solid #667eea';
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const existingItem = cartItems.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cartItems.push({
+                        ...product,
+                        quantity: 1
+                    });
+                }
+
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                updateCartCount();
+                alert('Product added to cart!');
+            }
+        }
+
+        function updateCartCount() {
+            const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+        }
+
+        function openCart() {
+            window.location.href = 'cart.html';
+        }
+
+        function openUserMenu() {
+            window.location.href = 'login.php';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            loadGameDetails();
+            updateCartCount();
+        });
+    </script>
+</body>
+
+</html>

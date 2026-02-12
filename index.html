@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DNA Games - Digital Game Marketplace</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                    <div class="logo-icon">
+                        <img src="images/dna-logo.png" alt="DNA Games Logo" class="dna-logo-img">
+                    </div>
+                    <span class="logo-text">DNA Games</span>
+                </a>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Search for games, software, or bundles..." id="searchInput">
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="header-actions">
+                    <div class="cart-icon" onclick="openCart()">
+                        <span class="cart-symbol">🛒</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+
+                    <div class="user-icon" onclick="openUserMenu()">
+                        <span class="user-symbol">👤</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide active">
+                <div class="hero-image" style="background-image: url('images/summer.jpg')"></div>
+                <div class="hero-content">
+                    <div class="container">
+                        <div class="hero-text">
+                            <span class="hero-subtitle">SUMMER GAME FESTIVAL</span>
+                            <h1>MASSIVE SUMMER SALE</h1>
+                            <h2>Up to 90% Off Top Titles</h2>
+                            <div class="discount-badge">90% OFF</div>
+                        </div>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" onclick="shopNow()">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Platform Selection -->
+    <section class="platform-selection">
+        <div class="container">
+            <div class="platform-header">
+                <h2>Choose your platform</h2>
+            </div>
+            <div class="platform-buttons">
+                <button class="platform-btn active" onclick="filterByPlatform('all')" data-platform="all">
+                    <span class="platform-icon">🎮</span>
+                    <span>All</span>
+                </button>
+                <button class="platform-btn" onclick="filterByPlatform('pc')" data-platform="pc">
+                    <span class="platform-icon">💻</span>
+                    <span>PC</span>
+                </button>
+                <button class="platform-btn" onclick="filterByPlatform('xbox')" data-platform="xbox">
+                    <span class="platform-icon">🎮</span>
+                    <span>Xbox</span>
+                </button>
+                <button class="platform-btn" onclick="filterByPlatform('playstation')" data-platform="playstation">
+                    <span class="platform-icon">🎮</span>
+                    <span>PlayStation</span>
+                </button>
+                <button class="platform-btn" onclick="filterByPlatform('nintendo')" data-platform="nintendo">
+                    <span class="platform-icon">🎮</span>
+                    <span>Nintendo</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav-new">
+        <div class="container">
+            <div class="category-items-new">
+                <button class="category-item-new active" onclick="filterByCategory('bestsellers')"
+                    data-category="bestsellers">
+                    <span>Bestsellers</span>
+                </button>
+                <button class="category-item-new" onclick="filterByCategory('upcoming')" data-category="upcoming">
+                    <span>Upcoming games</span>
+                </button>
+                <button class="category-item-new" onclick="filterByCategory('software')" data-category="software">
+                    <span>Software</span>
+                </button>
+                <button class="category-item-new" onclick="filterByCategory('gift-cards')" data-category="gift-cards">
+                    <span>Gaming gift cards</span>
+                </button>               
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Main Content Area -->
+                <main class="main">
+
+                    <!-- Product Grid -->
+                    <div class="product-grid" id="productGrid">
+                        <!-- Products will be loaded here via JavaScript -->
+                    </div>
+
+                    <!-- Why DNA Games Section -->
+                    <section class="why-dna-games">
+                        <div class="why-header">
+                            <h2>Why DNA Games?</h2>
+                        </div>
+                        <div class="why-features-bar">
+                            <div class="feature-item-bar">
+                                <div class="feature-icon-bar">🛡️</div>
+                                <div class="feature-content-bar">
+                                    <h3>Vast selection in best prices</h3>
+                                    <p>Over 75K digital items</p>
+                                </div>
+                            </div>
+                            <div class="feature-item-bar">
+                                <div class="feature-icon-bar">🔒</div>
+                                <div class="feature-content-bar">
+                                    <h3>Secured payments</h3>
+                                    <p>200+ payment methods</p>
+                                </div>
+                            </div>
+                            <div class="feature-item-bar">
+                                <div class="feature-icon-bar">👥</div>
+                                <div class="feature-content-bar">
+                                    <h3>Loyal users</h3>
+                                    <p>30M customers in 180 countries</p>
+                                </div>
+                            </div>
+                            <div class="feature-item-bar">
+                                <div class="feature-icon-bar">💼</div>
+                                <div class="feature-content-bar">
+                                    <h3>Only business sellers</h3>
+                                    <p>100 verification factors</p>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+            </section>
+            </main>
+        </div>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p>&copy; 2025 DNA Games. All rights reserved. | Trusted digital marketplace since 2020</p>
+                </div>
+            </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
