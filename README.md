@@ -1,7 +1,7 @@
 # DNA Games
 
 DNA Games is an online platform for discovering and previewing video games.
-Users can browse games by category, explore detailed game information, and receive curated recommendations.
+Users can browse games by category and explore detailed game information.
 
 
 # 📌 Features
@@ -21,9 +21,9 @@ Users can browse games by category, explore detailed game information, and recei
 
 Frontend:
 
-- HTML5
+- HTML
   
-- CSS3
+- CSS
   
 - JavaScript 
 
@@ -31,7 +31,7 @@ Backend:
 
 - MySQL
   
-- JavaScrip
+- JavaScript
   
 - PHP
 
